@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Restart">
+<meta name="theme-color" content="#372E7C">
+<title>Restart · Daily Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F3FB; --card:#FFFFFF; --ink:#1D1735; --muted:#7B7692; --hair:#E9E6F2;
+  --violet:#7C3AED; --emerald:#10B981;
+  --grad:linear-gradient(135deg,#372E7C 0%,#7C3AED 55%,#A855F7 100%);
+  --grad-today:linear-gradient(135deg,#FF5E7E,#FF9966);
+  --grad-done:linear-gradient(135deg,#0EA5A0,#10B981);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{background:#372E7C}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:"Outfit",-apple-system,"Helvetica Neue",Arial,sans-serif;
+  font-size:15px;line-height:1.45;
+  max-width:640px;margin:0 auto;
+  padding:calc(env(safe-area-inset-top) + 14px) 14px calc(env(safe-area-inset-bottom) + 40px);
+  min-height:100vh;
+}
+.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:12px;letter-spacing:.02em}
+
+/* ---------- hero ---------- */
+.hero{background:var(--grad);border-radius:22px;padding:20px 18px;color:#fff;
+  box-shadow:0 12px 30px rgba(72,42,180,.28)}
+.hero-top{display:flex;align-items:center;gap:16px}
+.ring-wrap{position:relative;width:84px;height:84px;flex-shrink:0}
+.ring-wrap svg{width:84px;height:84px;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:rgba(255,255,255,.22);stroke-width:8}
+#ringFill{fill:none;stroke:url(#rg);stroke-width:8;stroke-linecap:round;
+  stroke-dasharray:213.6;stroke-dashoffset:213.6;transition:stroke-dashoffset .6s ease}
+.ring-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:19px}
+.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.18em;opacity:.75;font-weight:600}
+h1{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-top:3px}
+.hero-sub{font-size:12.5px;opacity:.8;margin-top:4px}
+.hero-stats{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.16);backdrop-filter:blur(4px);border-radius:999px;
+  padding:6px 12px;font-size:12.5px;font-weight:600}
+.legend{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;opacity:.9}
+.leg i{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+/* ---------- today card ---------- */
+.today{background:var(--card);border-radius:20px;margin-top:16px;padding:16px;
+  box-shadow:0 8px 24px rgba(29,23,53,.08);border-top:5px solid var(--violet)}
+.today-top{display:flex;align-items:center;gap:10px}
+.chip{background:var(--grad-today);color:#fff;font-size:10.5px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.12em;padding:4px 10px;border-radius:999px}
+.today-date{font-weight:700;font-size:13px;color:var(--muted)}
+.today-wk{margin-left:auto;color:var(--muted);font-weight:600;font-size:12px}
+.today-task{font-size:18px;font-weight:800;letter-spacing:-.01em;line-height:1.25;margin-top:10px}
+.target{margin-top:8px;color:#4b4563;font-size:13.5px}
+.t-label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);
+  font-weight:800;margin-right:6px}
+.actions{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.btn-open{flex:1;min-width:150px;text-align:center;background:var(--grad);color:#fff;
+  text-decoration:none;font-weight:700;font-size:14px;padding:12px 14px;border-radius:14px;
+  box-shadow:0 6px 16px rgba(124,58,237,.3)}
+.btn-open:active{transform:scale(.98)}
+.btn-done{flex-shrink:0;border:2px solid var(--violet);background:#fff;color:var(--violet);
+  font-weight:800;font-size:14px;padding:10px 16px;border-radius:14px;cursor:pointer;font-family:inherit}
+.btn-done.is-done{background:var(--grad-done);border-color:transparent;color:#fff;
+  box-shadow:0 6px 16px rgba(16,185,129,.35)}
+.btn-open.sm,.btn-done.sm{font-size:13px;padding:8px 12px;min-width:0;flex:none;border-radius:11px}
+textarea.note{width:100%;margin-top:12px;border:1.5px solid var(--hair);background:var(--bg);
+  padding:10px 12px;font:inherit;font-size:14px;border-radius:12px;resize:vertical;color:var(--ink)}
+textarea.note:focus{outline:2px solid var(--violet);outline-offset:1px;border-color:transparent}
+.btn-done:focus-visible,.btn-open:focus-visible,.week-hdr:focus-visible,.day-row:focus-visible,
+.stop:focus-visible{outline:2px solid var(--violet);outline-offset:2px}
+textarea.note.sm{font-size:13px;margin-top:10px}
+
+/* ---------- phases ---------- */
+.phase{margin-top:28px}
+.phase-hdr{display:flex;align-items:center;gap:10px;padding:0 4px 10px}
+.phase-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;box-shadow:0 0 0 4px var(--pd,transparent)}
+.phase-name{font-weight:800;font-size:15px;letter-spacing:-.01em}
+.phase-sub{font-size:12px;color:var(--muted)}
+.phase-count{margin-left:auto;font-weight:800;font-size:12px;padding:4px 10px;border-radius:999px}
+
+/* ---------- weeks ---------- */
+.week{background:var(--card);border-radius:16px;margin-bottom:10px;
+  box-shadow:0 3px 12px rgba(29,23,53,.06);overflow:hidden}
+.week-hdr{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;
+  padding:13px 14px;cursor:pointer;font:inherit;text-align:left;color:var(--ink)}
+.week-no{font-weight:800;font-size:13px;width:36px;color:var(--wc,#7C3AED)}
+.week-range{color:var(--muted);font-size:12px;font-weight:600}
+.week-dots{margin-left:auto;display:flex;gap:4px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--hair);display:inline-block;transition:background .2s}
+.caret{width:18px;text-align:center;color:var(--muted);font-weight:800;transition:transform .2s}
+.week.open .caret{transform:rotate(45deg)}
+.week-body{display:none;padding:2px 14px 12px}
+.week.open .week-body{display:block}
+
+/* ---------- days / journey line ---------- */
+.days{list-style:none;border-left:3px solid var(--wc,#7C3AED);margin-left:13px;padding:4px 0}
+.day{display:flex;gap:12px;position:relative;padding:8px 0}
+.stop{width:17px;height:17px;border-radius:50%;background:var(--card);
+  border:2.5px solid var(--hair);margin-left:-10px;margin-top:2px;flex-shrink:0;cursor:pointer;
+  transition:transform .15s,background .2s,border-color .2s}
+.stop:active{transform:scale(1.2)}
+.stop.done{border-color:var(--wc);background:var(--wc)}
+.stop.today-stop{border-color:#FF5E7E;box-shadow:0 0 0 4px rgba(255,94,126,.2)}
+.day-body{flex:1;min-width:0}
+.day-row{display:flex;gap:10px;align-items:baseline;width:100%;background:none;border:none;
+  font:inherit;text-align:left;cursor:pointer;padding:0;color:var(--ink)}
+.day-date{color:var(--muted);flex-shrink:0;width:74px;font-weight:600}
+.day-task{font-size:13.5px;font-weight:600}
+.struck{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1.5px}
+.day.today-day .day-task{font-weight:800}
+.detail{display:none;margin-top:8px;padding:10px 12px;background:var(--bg);border-radius:12px}
+.day.open .detail{display:block}
+.detail .target{margin-top:0;font-size:13px}
+
+/* ---------- misc ---------- */
+.break{margin:4px 0 12px;padding:12px 14px;background:#FFF4DE;color:#8a6a1f;border-radius:14px;
+  font-size:12.5px;font-weight:600}
+footer{margin-top:36px;text-align:center;color:var(--muted);font-size:12px}
+.burst{position:fixed;pointer-events:none;z-index:99}
+.burst i{position:absolute;width:9px;height:9px;border-radius:2px;
+  animation:pop .85s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes pop{
+  0%{transform:translate(0,0) scale(1) rotate(0);opacity:1}
+  100%{transform:translate(var(--dx),var(--dy)) scale(.2) rotate(220deg);opacity:0}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-top">
+    <div class="ring-wrap">
+      <svg viewBox="0 0 84 84" aria-hidden="true">
+        <defs>
+          <linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#FFD166"/>
+            <stop offset="100%" stop-color="#FF5E7E"/>
+          </linearGradient>
+        </defs>
+        <circle class="ring-bg" cx="42" cy="42" r="34"/>
+        <circle id="ringFill" cx="42" cy="42" r="34"/>
+      </svg>
+      <div class="ring-pct" id="pctText">0%</div>
+    </div>
+    <div>
+      <div class="eyebrow">Daily restart plan</div>
+      <h1>Zürich → Data Engineer</h1>
+      <div class="hero-sub">115 weekdays · 1 hour a day · Aug 2026 – Jan 2027</div>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <span class="pill" id="streakPill">🔥 0-day streak</span>
+    <span class="pill" id="donePill">0 of 115 done</span>
+  </div>
+  <div class="legend" id="legend"></div>
+</header>
+
+<section class="today" id="todayCard" aria-label="Current task"></section>
+
+<main id="route"></main>
+
+<footer>One hour. One task. One tick. · Progress saves on this device.</footer>
+
+<script>
+/* ---------------- sources ---------------- */
+var L = {
+  sqlbolt:"https://sqlbolt.com",
+  mode:"https://mode.com/sql-tutorial",
+  lc:"https://leetcode.com/studyplan/top-sql-50/",
+  ss:"https://platform.stratascratch.com/coding",
+  kagpy:"https://www.kaggle.com/learn/python",
+  kagpd:"https://www.kaggle.com/learn/pandas",
+  kagds:"https://www.kaggle.com/datasets",
+  dp700:"https://learn.microsoft.com/en-us/training/courses/dp-700t00",
+  cert:"https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/",
+  practice:"https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/practice/assessment?assessment-type=practice&assessmentId=90",
+  fabric:"https://app.fabric.microsoft.com",
+  dbx:"https://www.databricks.com/learn/free-edition",
+  dbxacad:"https://customer-academy.databricks.com",
+  dbt:"https://learn.getdbt.com",
+  zoom:"https://github.com/DataTalksClub/data-engineering-zoomcamp",
+  infa:"https://www.informatica.com/services-and-training/informatica-university.html",
+  opendata:"https://opendata.swiss",
+  jobs:"https://www.jobs.ch",
+  li:"https://www.linkedin.com",
+  gh:"https://github.com"
+};
+var SRC = {};
+SRC[L.sqlbolt]="SQLBolt"; SRC[L.mode]="Mode SQL Tutorial"; SRC[L.lc]="LeetCode SQL 50";
+SRC[L.ss]="StrataScratch"; SRC[L.kagpy]="Kaggle · Python"; SRC[L.kagpd]="Kaggle · Pandas";
+SRC[L.kagds]="Kaggle Datasets"; SRC[L.dp700]="MS Learn · DP-700"; SRC[L.cert]="DP-700 cert page";
+SRC[L.practice]="Practice assessment"; SRC[L.fabric]="Microsoft Fabric"; SRC[L.dbx]="Databricks Free";
+SRC[L.dbxacad]="Databricks Academy"; SRC[L.dbt]="dbt Learn"; SRC[L.zoom]="DE Zoomcamp";
+SRC[L.infa]="Informatica University"; SRC[L.opendata]="opendata.swiss"; SRC[L.jobs]="jobs.ch";
+SRC[L.li]="LinkedIn"; SRC[L.gh]="GitHub";
+
+/* ---------------- phases ---------------- */
+var PHASES = [
+  {name:"SQL + Python", color:"#3B82F6", sub:"Weeks 1–6 · rebuild the foundations"},
+  {name:"Microsoft Fabric · DP-700", color:"#10B981", sub:"Weeks 7–14 · new certification"},
+  {name:"Databricks · dbt · Orchestration", color:"#F59E0B", sub:"Weeks 15–18 · modern stack"},
+  {name:"Portfolio + Job hunt", color:"#EC4899", sub:"Weeks 19–23 · make it visible"}
+];
+
+/* ---------------- plan: 23 weeks · 115 days ---------------- */
+var PLAN = [
+ {w:1,p:0,days:[
+  ["2026-08-03","SQLBolt lessons 1–3: SELECT queries & constraints","Finish all interactive exercises",L.sqlbolt],
+  ["2026-08-04","SQLBolt lessons 4–6: filtering, sorting, LIMIT","Finish exercises; note DISTINCT vs GROUP BY",L.sqlbolt],
+  ["2026-08-05","SQLBolt lessons 7–9: JOINs (inner & outer), NULLs","Finish exercises; note when LEFT vs INNER",L.sqlbolt],
+  ["2026-08-06","SQLBolt lessons 10–12: aggregates & GROUP BY","Write the logical order of SQL execution from memory",L.sqlbolt],
+  ["2026-08-07","SQLBolt lessons 13–18: INSERT, UPDATE, DELETE, schema","Finish the course; 10-bullet week summary in notes",L.sqlbolt]]},
+ {w:2,p:0,days:[
+  ["2026-08-10","Mode tutorial: aggregate functions (COUNT, SUM, AVG…)","Finish the aggregate lessons + practice problems",L.mode],
+  ["2026-08-11","Mode: GROUP BY, HAVING, CASE","Finish all three lessons' practice problems",L.mode],
+  ["2026-08-12","Mode: joins in depth + UNION","Note join pitfalls: duplicates, NULLs, fan-out",L.mode],
+  ["2026-08-13","Mode: subqueries","Finish lesson; rewrite one subquery as a JOIN",L.mode],
+  ["2026-08-14","Mode: window functions I — OVER, PARTITION BY","Finish intro lesson; note the syntax pattern",L.mode]]},
+ {w:3,p:0,days:[
+  ["2026-08-17","Mode: window functions II — RANK, LAG/LEAD, running totals","Write 3 example queries in your notes",L.mode],
+  ["2026-08-18","LeetCode SQL 50: Select & Basic Joins","Solve 5 problems",L.lc],
+  ["2026-08-19","LeetCode SQL 50: Basic Aggregate Functions","Solve 5 problems",L.lc],
+  ["2026-08-20","LeetCode SQL 50: Sorting & Grouping","Solve 5 problems",L.lc],
+  ["2026-08-21","LeetCode SQL 50: Subqueries","Solve 5; note any pattern you missed",L.lc]]},
+ {w:4,p:0,days:[
+  ["2026-08-24","Kaggle Python lessons 1–2: syntax & functions","Finish both exercises",L.kagpy],
+  ["2026-08-25","Kaggle Python lessons 3–4: booleans, conditionals, lists","Finish both exercises",L.kagpy],
+  ["2026-08-26","Kaggle Python lessons 5–6: loops, strings & dictionaries","Finish both exercises",L.kagpy],
+  ["2026-08-27","Kaggle Python lesson 7: external libraries","Finish the course; grab the certificate",L.kagpy],
+  ["2026-08-28","Practice: 3 small scripts from scratch (read a CSV, word count, date math)","All 3 run without looking anything up twice",L.kagpy]]},
+ {w:5,p:0,days:[
+  ["2026-08-31","Kaggle Pandas: creating/reading data + indexing & selecting","Finish both exercises",L.kagpd],
+  ["2026-09-01","Kaggle Pandas: summary functions & maps","Finish exercise",L.kagpd],
+  ["2026-09-02","Kaggle Pandas: grouping & sorting","Finish exercise",L.kagpd],
+  ["2026-09-03","Kaggle Pandas: data types & missing values","Finish exercise",L.kagpd],
+  ["2026-09-04","Kaggle Pandas: renaming & combining","Finish course + certificate; 10-line cheat sheet in notes",L.kagpd]]},
+ {w:6,p:0,days:[
+  ["2026-09-07","StrataScratch: 3 easy SQL interview questions","3 solved, unassisted",L.ss],
+  ["2026-09-08","StrataScratch: 2 medium SQL questions","2 solved; note the tricks",L.ss],
+  ["2026-09-09","Mini project: pick any Kaggle CSV — load, clean, group, chart with pandas","A working notebook you could show someone",L.kagds],
+  ["2026-09-10","LeetCode SQL 50: Advanced Select & window problems","Solve 4",L.lc],
+  ["2026-09-11","Phase 1 review: self-quiz from your own notes","List your 3 weak spots to revisit later",L.mode]]},
+ {w:7,p:1,days:[
+  ["2026-09-14","Start the Microsoft Fabric free trial; tour the workspace","Trial active; one workspace created",L.fabric],
+  ["2026-09-15","DP-700 path: Introduction to end-to-end analytics with Fabric","Module + knowledge check done",L.dp700],
+  ["2026-09-16","DP-700 path: Get started with lakehouses","Module + knowledge check done",L.dp700],
+  ["2026-09-17","Lab: create a lakehouse, upload a sample CSV, query it","You can query your own table in Fabric",L.fabric],
+  ["2026-09-18","DP-700 path: Use Apache Spark in Fabric","Module done; note Spark pool basics",L.dp700]]},
+ {w:8,p:1,days:[
+  ["2026-09-21","Lab: run a Spark notebook over your lakehouse data","One notebook: read, transform, write a table",L.fabric],
+  ["2026-09-22","DP-700 path: ingest data with Dataflows Gen2","Module + knowledge check done",L.dp700],
+  ["2026-09-23","Lab: build a Dataflow Gen2 that cleans and lands a table","Dataflow runs end to end",L.fabric],
+  ["2026-09-24","DP-700 path: ingest with data pipelines (Copy activity)","Module done",L.dp700],
+  ["2026-09-25","Lab: build a pipeline; read up on OneLake shortcuts","Pipeline runs; shortcut concept in notes",L.fabric]]},
+ {w:9,p:1,days:[
+  ["2026-09-28","DP-700 path: work with Delta Lake tables","Module + knowledge check done",L.dp700],
+  ["2026-09-29","Lab: Delta tables — versioning & time travel","Query an old version of a table",L.fabric],
+  ["2026-09-30","DP-700 path: medallion architecture in Fabric","Module done; sketch bronze/silver/gold in notes",L.dp700],
+  ["2026-10-01","Lab: build bronze → silver → gold in your lakehouse","All three layers exist and load",L.fabric],
+  ["2026-10-02","Review weeks 7–9 notes; redo 2 knowledge checks","Both checks passed comfortably",L.dp700]]},
+ {w:10,p:1,days:[
+  ["2026-10-05","DP-700 path: get started with data warehouses in Fabric","Module + knowledge check done",L.dp700],
+  ["2026-10-06","Lab: create a warehouse; run T-SQL queries","Warehouse created, 5 queries run",L.fabric],
+  ["2026-10-07","DP-700 path: load data into the warehouse","Module done",L.dp700],
+  ["2026-10-08","Lab: load + query; explore warehouse monitoring","One load pattern working; monitoring page seen",L.fabric],
+  ["2026-10-09","DP-700 path: secure the warehouse (RLS / CLS / permissions)","Module done; note the 3 security levels",L.dp700]]},
+ {w:11,p:1,days:[
+  ["2026-10-12","DP-700 path: Real-Time Intelligence — eventstreams","Module + knowledge check done",L.dp700],
+  ["2026-10-13","Lab: create an eventstream with the sample streaming data","Events flowing into an eventhouse",L.fabric],
+  ["2026-10-14","DP-700 path: KQL basics for eventhouses","Module done; KQL ≠ SQL differences in notes",L.dp700],
+  ["2026-10-15","Lab: write 10 KQL queries on the sample eventhouse","10 queries saved",L.fabric],
+  ["2026-10-16","Real-time dashboards + weekly review","One dashboard tile built; notes reviewed",L.dp700]]},
+ {w:12,p:1,days:[
+  ["2026-10-19","DP-700 path: administer & govern Fabric","Module + knowledge check done",L.dp700],
+  ["2026-10-20","DP-700 path: security & permissions model (workspace / item)","Module done",L.dp700],
+  ["2026-10-21","DP-700 path: CI/CD — deployment pipelines & Git integration","Module done",L.dp700],
+  ["2026-10-22","Lab: connect a workspace to Git; try a deployment pipeline","One commit from Fabric visible in Git",L.fabric],
+  ["2026-10-23","Monitoring: Monitor hub & capacity metrics; review notes","You can explain where to look when a job fails",L.dp700]]},
+ {w:13,p:1,days:[
+  ["2026-10-26","Official practice assessment #1 — full run","Score in notes; list your 3 weakest areas",L.practice],
+  ["2026-10-27","Re-study weak area 1 (redo those modules)","Redone + fresh notes",L.dp700],
+  ["2026-10-28","Re-study weak area 2","Redone + fresh notes",L.dp700],
+  ["2026-10-29","Practice assessment #2","Score improved vs #1",L.practice],
+  ["2026-10-30","Review every wrong answer; book the DP-700 exam for mid-November ($165)","Exam booked — write the date in notes",L.cert]]},
+ {w:14,p:1,days:[
+  ["2026-11-02","Read the official DP-700 study guide end to end","Every listed skill maps to something you did",L.cert],
+  ["2026-11-03","Practice assessment #3","Score in notes",L.practice],
+  ["2026-11-04","Lab refresh: rebuild a mini end-to-end flow (ingest → transform → report)","Done in under an hour without guides",L.fabric],
+  ["2026-11-05","Practice assessment #4","Target 80%+",L.practice],
+  ["2026-11-06","Light review only — then sit the DP-700 exam this week or Monday","Exam sat. Whatever happens, you showed up",L.cert]]},
+ {w:15,p:2,days:[
+  ["2026-11-09","Create a Databricks Free Edition account; tour the workspace","Account active; one notebook opened",L.dbx],
+  ["2026-11-10","Databricks Academy: start the free Data Engineering learning plan","First modules done",L.dbxacad],
+  ["2026-11-11","Spark DataFrames: select, filter, withColumn practice","One practice notebook saved",L.dbx],
+  ["2026-11-12","Delta Lake on Databricks: create, merge, optimize","MERGE statement working on a demo table",L.dbxacad],
+  ["2026-11-13","Notebook exercise: small ETL over a sample dataset","Raw → clean → summary tables exist",L.dbx]]},
+ {w:16,p:2,days:[
+  ["2026-11-16","PySpark: joins & aggregations practice","5 join/agg snippets in a notebook",L.dbx],
+  ["2026-11-17","PySpark: read/write Parquet & Delta; partitioning basics","Partitioned write + read-back done",L.dbx],
+  ["2026-11-18","Continue Databricks Academy modules","Next modules done",L.dbxacad],
+  ["2026-11-19","Build one end-to-end ETL notebook (raw → clean → aggregate)","Runs top to bottom in one click",L.dbx],
+  ["2026-11-20","Write the translation table: Informatica mappings → Spark concepts","One page in notes — this is interview gold",L.dbxacad]]},
+ {w:17,p:2,days:[
+  ["2026-11-23","dbt Fundamentals: setup & first project","Course started; project runs",L.dbt],
+  ["2026-11-24","dbt: models & materializations","View vs table vs incremental in notes",L.dbt],
+  ["2026-11-25","dbt: tests & documentation","One test + docs generated",L.dbt],
+  ["2026-11-26","dbt: sources, seeds, Jinja basics","Lesson done",L.dbt],
+  ["2026-11-27","Finish dbt Fundamentals; claim the badge","Badge earned — add it to LinkedIn later",L.dbt]]},
+ {w:18,p:2,days:[
+  ["2026-11-30","DE Zoomcamp: workflow orchestration module","Module skimmed; concepts noted",L.zoom],
+  ["2026-12-01","Orchestration concepts: DAGs, scheduling, retries, backfills","Can explain each in one sentence",L.zoom],
+  ["2026-12-02","Compare orchestrators: Fabric pipelines vs Airflow","1-page comparison note",L.zoom],
+  ["2026-12-03","SQL keep-sharp: 3 StrataScratch mediums","3 solved",L.ss],
+  ["2026-12-04","Phase 3 review: write your modern-stack cheat sheet","One page you'd revise before any interview",L.zoom]]},
+ {w:19,p:3,days:[
+  ["2026-12-07","Project 1 design: pick a dataset on opendata.swiss; sketch a medallion plan","Dataset chosen; architecture sketched",L.opendata],
+  ["2026-12-08","Ingest: a Fabric pipeline lands the raw data (bronze)","Bronze layer loaded",L.fabric],
+  ["2026-12-09","Transform: notebook cleans bronze → silver","Silver tables exist",L.fabric],
+  ["2026-12-10","Gold layer + a small Power BI report on top","One report page with 3 visuals",L.fabric],
+  ["2026-12-11","Screenshot & document every step for the README","Folder of screenshots + captions",L.gh]]},
+ {w:20,p:3,days:[
+  ["2026-12-14","Create a GitHub repo; push notebooks & pipeline definitions","Repo public and organized",L.gh],
+  ["2026-12-15","Write the README: architecture diagram + what/why/how","A stranger could understand the project in 2 min",L.gh],
+  ["2026-12-16","Informatica refresh: free IDMC trainings on Informatica University","First course started",L.infa],
+  ["2026-12-17","IDMC continued: map your PowerCenter knowledge to cloud terms","Old skill → new term list in notes",L.infa],
+  ["2026-12-18","Wrap up project 1 — then holiday break until 4 January","Everything pushed. Go rest, you earned it",L.gh]]},
+ {w:21,p:3,days:[
+  ["2027-01-04","Project 2 design: PySpark ETL on Databricks + dbt transforms","Scope written down — keep it small",L.dbx],
+  ["2027-01-05","Build ingestion + bronze tables","Bronze loaded",L.dbx],
+  ["2027-01-06","PySpark transformations to silver / gold","Both layers built",L.dbx],
+  ["2027-01-07","Add dbt models & tests on top","dbt run + test both green",L.dbt],
+  ["2027-01-08","Push to GitHub with a strong README","Second repo live",L.gh]]},
+ {w:22,p:3,days:[
+  ["2027-01-11","CV rewrite (Swiss format): 8 yrs experience + DP-700 + both projects up top","Draft done",L.jobs],
+  ["2027-01-12","LinkedIn overhaul: headline, About, skills, project links, dbt badge","Profile says data engineer, not career gap",L.li],
+  ["2027-01-13","Write & rehearse your 60-second career-gap answer","Said out loud 5 times without notes",L.li],
+  ["2027-01-14","List 20 target Zürich employers (banks, insurers, pharma, consultancies)","20 names + why each fits you",L.jobs],
+  ["2027-01-15","Set job alerts on jobs.ch + LinkedIn; collect recurring keywords","Alerts on; keyword list started",L.jobs]]},
+ {w:23,p:3,days:[
+  ["2027-01-18","Interview drills: 3 StrataScratch interview SQL questions","3 solved under light time pressure",L.ss],
+  ["2027-01-19","Data modeling review: star schema, SCD types — from your notes","Can whiteboard both from memory",L.zoom],
+  ["2027-01-20","Pipeline design: explain an end-to-end design out loud","2-minute spoken walkthrough, recorded on your phone",L.zoom],
+  ["2027-01-21","STAR stories: draft 5 behavioral answers from your 8 years","5 stories written",L.li],
+  ["2027-01-22","Apply to your first 3 roles","3 applications sent 🚀",L.jobs]]}
+];
+
+/* ---------------- state & storage ---------------- */
+var ALL = [];
+PLAN.forEach(function(wk){ wk.days.forEach(function(d){
+  ALL.push({date:d[0],task:d[1],target:d[2],link:d[3],w:wk.w,p:wk.p});
+});});
+var TOTAL = ALL.length;
+var KEY = "restart-daily-plan-v1";
+var done = {}, notes = {};
+var mem = {};
+var saveTimer = null;
+
+async function loadState(){
+  try{
+    if (window.storage){
+      var r = await window.storage.get(KEY);
+      if (r && r.value){ var v = JSON.parse(r.value); done = v.done||{}; notes = v.notes||{}; return; }
+    }
+  }catch(e){}
+  try{
+    var s = localStorage.getItem(KEY);
+    if (s){ var v2 = JSON.parse(s); done = v2.done||{}; notes = v2.notes||{}; return; }
+  }catch(e){}
+  if (mem[KEY]){ var v3 = JSON.parse(mem[KEY]); done = v3.done||{}; notes = v3.notes||{}; }
+}
+async function saveState(){
+  var payload = JSON.stringify({done:done, notes:notes});
+  mem[KEY] = payload;
+  try{ if (window.storage){ await window.storage.set(KEY, payload); return; } }catch(e){}
+  try{ localStorage.setItem(KEY, payload); }catch(e){}
+}
+function scheduleSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(saveState, 500); }
+
+/* ---------------- helpers ---------------- */
+var DOW = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+function fmt(ds){
+  var p = ds.split("-");
+  var dt = new Date(+p[0], +p[1]-1, +p[2]);
+  return DOW[dt.getDay()] + " " + p[2] + "." + p[1];
+}
+function todayISO(){
+  var n = new Date();
+  return n.getFullYear() + "-" + String(n.getMonth()+1).padStart(2,"0") + "-" + String(n.getDate()).padStart(2,"0");
+}
+var TODAY = todayISO();
+function focusDay(){
+  for (var i=0;i<ALL.length;i++){ if (ALL[i].date === TODAY) return ALL[i]; }
+  for (var j=0;j<ALL.length;j++){ if (ALL[j].date > TODAY) return ALL[j]; }
+  return ALL[ALL.length-1];
+}
+function hexA(hex, a){
+  var r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+}
+function calcStreak(){
+  var past = ALL.filter(function(d){ return d.date <= TODAY; });
+  var i = past.length - 1;
+  if (i >= 0 && past[i].date === TODAY && !done[TODAY]) i--;
+  var s = 0;
+  while (i >= 0 && done[past[i].date]){ s++; i--; }
+  return s;
+}
+
+/* ---------------- render ---------------- */
+var FOCUS = focusDay();
+
+function renderLegend(){
+  document.getElementById("legend").innerHTML = PHASES.map(function(ph){
+    return '<span class="leg"><i style="background:' + ph.color + '"></i>' + ph.name + '</span>';
+  }).join("");
+}
+
+function renderToday(){
+  var f = FOCUS, ph = PHASES[f.p];
+  var card = document.getElementById("todayCard");
+  card.style.borderTopColor = ph.color;
+  card.innerHTML =
+    '<div class="today-top">' +
+      '<span class="chip">' + (f.date === TODAY ? "Today" : "Next up") + '</span>' +
+      '<span class="today-date mono">' + fmt(f.date) + '</span>' +
+      '<span class="today-wk mono">Week ' + f.w + '</span>' +
+    '</div>' +
+    '<p class="today-task">' + f.task + '</p>' +
+    '<p class="target"><span class="t-label">Target</span>' + f.target + '</p>' +
+    '<div class="actions">' +
+      '<a class="btn-open" href="' + f.link + '" target="_blank" rel="noreferrer">Open ' + SRC[f.link] + ' ↗</a>' +
+      '<button class="btn-done" data-done-btn="' + f.date + '">Mark done</button>' +
+    '</div>' +
+    '<textarea class="note" rows="3" data-note="' + f.date + '" placeholder="Key points & notes for the day…"></textarea>';
+}
+
+function renderRoute(){
+  var html = "";
+  PHASES.forEach(function(ph, pi){
+    html += '<section class="phase" style="--wc:' + ph.color + '">' +
+      '<div class="phase-hdr">' +
+        '<span class="phase-dot" style="background:' + ph.color + ';--pd:' + hexA(ph.color,.18) + '"></span>' +
+        '<div><div class="phase-name">' + ph.name + '</div>' +
+        '<div class="phase-sub">' + ph.sub + '</div></div>' +
+        '<span class="phase-count" id="pc' + pi + '" style="background:' + hexA(ph.color,.14) + ';color:' + ph.color + '"></span>' +
+      '</div>';
+    PLAN.forEach(function(wk){
+      if (wk.p !== pi) return;
+      html += '<div class="week" id="wk' + wk.w + '" style="--wc:' + ph.color + '">' +
+        '<button class="week-hdr" data-toggle-week="' + wk.w + '" aria-expanded="false">' +
+          '<span class="week-no">W' + wk.w + '</span>' +
+          '<span class="week-range mono">' + fmt(wk.days[0][0]) + ' – ' + fmt(wk.days[4][0]) + '</span>' +
+          '<span class="week-dots">' + wk.days.map(function(d){
+            return '<i class="dot" data-dot="' + d[0] + '"></i>';
+          }).join("") + '</span>' +
+          '<span class="caret">+</span>' +
+        '</button>' +
+        '<div class="week-body"><ol class="days">' +
+        wk.days.map(function(d){
+          var date = d[0];
+          return '<li class="day' + (date === TODAY ? ' today-day' : '') + '" id="day-' + date + '">' +
+            '<span class="stop' + (date === TODAY ? ' today-stop' : '') + '" data-stop="' + date + '" role="checkbox" aria-checked="false" tabindex="0"></span>' +
+            '<div class="day-body">' +
+              '<button class="day-row" data-row="' + date + '">' +
+                '<span class="day-date mono">' + fmt(date) + '</span>' +
+                '<span class="day-task" data-task="' + date + '">' + d[1] + '</span>' +
+              '</button>' +
+              '<div class="detail">' +
+                '<p class="target"><span class="t-label">Target</span>' + d[2] + '</p>' +
+                '<div class="actions">' +
+                  '<a class="btn-open sm" href="' + d[3] + '" target="_blank" rel="noreferrer">' + SRC[d[3]] + ' ↗</a>' +
+                  '<button class="btn-done sm" data-done-btn="' + date + '">Mark done</button>' +
+                '</div>' +
+                '<textarea class="note sm" rows="2" data-note="' + date + '" placeholder="Notes…"></textarea>' +
+              '</div>' +
+            '</div></li>';
+        }).join("") +
+        '</ol></div></div>';
+      if (wk.w === 20){
+        html += '<div class="break">✳ Holiday break · 21 Dec – 1 Jan · no tasks — rest ✨</div>';
+      }
+    });
+    html += '</section>';
+  });
+  document.getElementById("route").innerHTML = html;
+}
+
+/* ---------------- UI updates ---------------- */
+function updateDayUI(date){
+  var isDone = !!done[date];
+  document.querySelectorAll('[data-stop="' + date + '"]').forEach(function(el){
+    el.classList.toggle("done", isDone);
+    el.setAttribute("aria-checked", isDone ? "true" : "false");
+  });
+  document.querySelectorAll('[data-task="' + date + '"]').forEach(function(el){
+    el.classList.toggle("struck", isDone);
+  });
+  document.querySelectorAll('[data-dot="' + date + '"]').forEach(function(el){
+    var ph = null;
+    for (var i=0;i<ALL.length;i++){ if (ALL[i].date === date){ ph = PHASES[ALL[i].p]; break; } }
+    el.style.background = isDone && ph ? ph.color : "";
+  });
+  document.querySelectorAll('[data-done-btn="' + date + '"]').forEach(function(el){
+    el.classList.toggle("is-done", isDone);
+    el.textContent = isDone ? "✓ Done" : "Mark done";
+  });
+}
+function updateStats(){
+  var count = Object.keys(done).length;
+  var pct = Math.round(count / TOTAL * 100);
+  var C = 213.6;
+  document.getElementById("ringFill").style.strokeDashoffset = C - (C * pct / 100);
+  document.getElementById("pctText").textContent = pct + "%";
+  document.getElementById("donePill").textContent = count + " of " + TOTAL + " done";
+  var s = calcStreak();
+  document.getElementById("streakPill").textContent = "🔥 " + s + "-day streak";
+  PHASES.forEach(function(ph, pi){
+    var days = ALL.filter(function(d){ return d.p === pi; });
+    var dn = days.filter(function(d){ return done[d.date]; }).length;
+    var el = document.getElementById("pc" + pi);
+    if (el) el.textContent = dn + "/" + days.length;
+  });
+}
+function syncNotes(date, sourceEl){
+  document.querySelectorAll('[data-note="' + date + '"]').forEach(function(el){
+    if (el !== sourceEl) el.value = notes[date] || "";
+  });
+}
+function fillNotes(){
+  document.querySelectorAll("[data-note]").forEach(function(el){
+    el.value = notes[el.getAttribute("data-note")] || "";
+  });
+}
+function burst(x, y){
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var cols = ["#FFD166","#FF5E7E","#7C3AED","#10B981","#3B82F6","#F59E0B"];
+  var c = document.createElement("div");
+  c.className = "burst"; c.style.left = x + "px"; c.style.top = y + "px";
+  for (var i=0;i<16;i++){
+    var s = document.createElement("i");
+    s.style.background = cols[i % cols.length];
+    s.style.setProperty("--dx", (Math.random()*170 - 85) + "px");
+    s.style.setProperty("--dy", (-Math.random()*150 - 30) + "px");
+    s.style.animationDelay = (Math.random()*80) + "ms";
+    c.appendChild(s);
+  }
+  document.body.appendChild(c);
+  setTimeout(function(){ c.remove(); }, 1000);
+}
+function toggleDone(date, evt){
+  if (done[date]){ delete done[date]; }
+  else {
+    done[date] = true;
+    if (evt){
+      var t = evt.target.getBoundingClientRect();
+      burst(t.left + t.width/2, t.top);
+    }
+  }
+  updateDayUI(date);
+  updateStats();
+  saveState();
+}
+
+/* ---------------- events ---------------- */
+document.addEventListener("click", function(e){
+  var wkBtn = e.target.closest("[data-toggle-week]");
+  if (wkBtn){
+    var wk = document.getElementById("wk" + wkBtn.getAttribute("data-toggle-week"));
+    var open = wk.classList.toggle("open");
+    wkBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    return;
+  }
+  var stop = e.target.closest("[data-stop]");
+  if (stop){ toggleDone(stop.getAttribute("data-stop"), e); return; }
+  var btn = e.target.closest("[data-done-btn]");
+  if (btn){ toggleDone(btn.getAttribute("data-done-btn"), e); return; }
+  var row = e.target.closest("[data-row]");
+  if (row){ row.closest(".day").classList.toggle("open"); return; }
+});
+document.addEventListener("keydown", function(e){
+  var stop = e.target.closest && e.target.closest("[data-stop]");
+  if (stop && (e.key === "Enter" || e.key === " ")){
+    e.preventDefault();
+    toggleDone(stop.getAttribute("data-stop"), e);
+  }
+});
+document.addEventListener("input", function(e){
+  var ta = e.target.closest && e.target.closest("[data-note]");
+  if (ta){
+    var date = ta.getAttribute("data-note");
+    notes[date] = ta.value;
+    syncNotes(date, ta);
+    scheduleSave();
+  }
+});
+
+/* ---------------- init ---------------- */
+(async function(){
+  renderLegend();
+  renderToday();
+  renderRoute();
+  await loadState();
+  ALL.forEach(function(d){ if (done[d.date]) updateDayUI(d.date); });
+  fillNotes();
+  updateStats();
+  var wkEl = document.getElementById("wk" + FOCUS.w);
+  if (wkEl){
+    wkEl.classList.add("open");
+    var hdr = wkEl.querySelector("[data-toggle-week]");
+    if (hdr) hdr.setAttribute("aria-expanded","true");
+  }
+  var dayEl = document.getElementById("day-" + FOCUS.date);
+  if (dayEl) dayEl.classList.add("open");
+})();
+</script>
+</body>
+</html>
