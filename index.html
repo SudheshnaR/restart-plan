@@ -157,7 +157,7 @@ footer{margin-top:36px;text-align:center;color:var(--muted);font-size:12px}
     <div>
       <div class="eyebrow">Daily restart plan</div>
       <h1>Zürich → Data Engineer</h1>
-      <div class="hero-sub">125 weekdays · 1 hour a day · Aug 2026 – Feb 2027</div>
+      <div class="hero-sub">135 weekdays · 1 hour a day · Aug 2026 – Feb 2027</div>
     </div>
   </div>
   <div class="hero-stats">
@@ -201,7 +201,9 @@ var L = {
   ryans:"https://ryanstutorials.net/linuxtutorial/",
   cmdchallenge:"https://cmdchallenge.com",
   missing:"https://missing.csail.mit.edu/2020/shell-tools/",
-  explainshell:"https://explainshell.com"
+  explainshell:"https://explainshell.com",
+  infafree:"https://www.informatica.com/free-data-integration.html",
+  infatrial:"https://www.informatica.com/trials/cloud-data-integration.html"
 };
 var SRC = {};
 SRC[L.sqlbolt]="SQLBolt"; SRC[L.mode]="Mode SQL Tutorial"; SRC[L.lc]="LeetCode SQL 50";
@@ -214,13 +216,15 @@ SRC[L.li]="LinkedIn"; SRC[L.gh]="GitHub";
 SRC[L.lcshell]="LinuxCommand · Learn the Shell"; SRC[L.lcscript]="LinuxCommand · Shell Scripts";
 SRC[L.ryans]="Ryan's Linux Tutorial"; SRC[L.cmdchallenge]="cmdchallenge (practice)";
 SRC[L.missing]="MIT Missing Semester"; SRC[L.explainshell]="explainshell";
+SRC[L.infafree]="Cloud Data Integration Free"; SRC[L.infatrial]="Informatica 30-day trial";
 
 /* ---------------- phases ---------------- */
 var PHASES = [
   {name:"SQL · Linux · Python", color:"#3B82F6", sub:"Weeks 1–8 · rebuild the foundations"},
-  {name:"Microsoft Fabric · DP-700", color:"#10B981", sub:"Weeks 9–16 · new certification"},
-  {name:"Databricks · dbt · Orchestration", color:"#F59E0B", sub:"Weeks 17–20 · modern stack"},
-  {name:"Portfolio + Job hunt", color:"#EC4899", sub:"Weeks 21–25 · make it visible"}
+  {name:"Informatica IDMC", color:"#06B6D4", sub:"Weeks 9–10 · modernise your strongest skill"},
+  {name:"Microsoft Fabric · DP-700", color:"#10B981", sub:"Weeks 11–18 · new certification"},
+  {name:"Databricks · dbt · Orchestration", color:"#F59E0B", sub:"Weeks 19–22 · modern stack"},
+  {name:"Portfolio + Job hunt", color:"#EC4899", sub:"Weeks 23–27 · make it visible"}
 ];
 
 /* ---------------- plan: 23 weeks · 115 days ---------------- */
@@ -274,107 +278,119 @@ var PLAN = [
   ["2026-09-24","LeetCode SQL 50: Advanced Select & window problems","Solve 4",L.lc],
   ["2026-09-25","Phase 1 review: self-quiz from your own notes","List your 3 weak spots to revisit later",L.mode]]},
  {w:9,p:1,days:[
-  ["2026-09-28","Start the Microsoft Fabric free trial; tour the workspace","Trial active; one workspace created",L.fabric],
-  ["2026-09-29","DP-700 path: Introduction to end-to-end analytics with Fabric","Module + knowledge check done",L.dp700],
-  ["2026-09-30","DP-700 path: Get started with lakehouses","Module + knowledge check done",L.dp700],
-  ["2026-10-01","Lab: create a lakehouse, upload a sample CSV, query it","You can query your own table in Fabric",L.fabric],
-  ["2026-10-02","DP-700 path: Use Apache Spark in Fabric","Module done; note Spark pool basics",L.dp700]]},
+  ["2026-09-28","Sign up for Cloud Data Integration Free; tour Administrator, Data Integration & Monitor","Org active; you know what the Secure Agent does",L.infafree],
+  ["2026-09-29","Informatica University: start the free Cloud Data Integration self-paced course","First modules done; IDMC architecture sketched in notes",L.infa],
+  ["2026-09-30","Build your first cloud mapping: source → expression → target","Mapping runs and loads a target",L.infafree],
+  ["2026-10-01","Mapping tasks, taskflows & scheduling — the IDMC version of workflows","One taskflow built and scheduled",L.infafree],
+  ["2026-10-02","Write your PowerCenter → IDMC translation table (transformations, workflows, parameter files)","One page: old term → new term. This is interview gold",L.infa]]},
  {w:10,p:1,days:[
-  ["2026-10-05","Lab: run a Spark notebook over your lakehouse data","One notebook: read, transform, write a table",L.fabric],
-  ["2026-10-06","DP-700 path: ingest data with Dataflows Gen2","Module + knowledge check done",L.dp700],
-  ["2026-10-07","Lab: build a Dataflow Gen2 that cleans and lands a table","Dataflow runs end to end",L.fabric],
-  ["2026-10-08","DP-700 path: ingest with data pipelines (Copy activity)","Module done",L.dp700],
-  ["2026-10-09","Lab: build a pipeline; read up on OneLake shortcuts","Pipeline runs; shortcut concept in notes",L.fabric]]},
- {w:11,p:1,days:[
-  ["2026-10-12","DP-700 path: work with Delta Lake tables","Module + knowledge check done",L.dp700],
-  ["2026-10-13","Lab: Delta tables — versioning & time travel","Query an old version of a table",L.fabric],
-  ["2026-10-14","DP-700 path: medallion architecture in Fabric","Module done; sketch bronze/silver/gold in notes",L.dp700],
-  ["2026-10-15","Lab: build bronze → silver → gold in your lakehouse","All three layers exist and load",L.fabric],
-  ["2026-10-16","Review weeks 7–9 notes; redo 2 knowledge checks","Both checks passed comfortably",L.dp700]]},
- {w:12,p:1,days:[
-  ["2026-10-19","DP-700 path: get started with data warehouses in Fabric","Module + knowledge check done",L.dp700],
-  ["2026-10-20","Lab: create a warehouse; run T-SQL queries","Warehouse created, 5 queries run",L.fabric],
-  ["2026-10-21","DP-700 path: load data into the warehouse","Module done",L.dp700],
-  ["2026-10-22","Lab: load + query; explore warehouse monitoring","One load pattern working; monitoring page seen",L.fabric],
-  ["2026-10-23","DP-700 path: secure the warehouse (RLS / CLS / permissions)","Module done; note the 3 security levels",L.dp700]]},
- {w:13,p:1,days:[
-  ["2026-10-26","DP-700 path: Real-Time Intelligence — eventstreams","Module + knowledge check done",L.dp700],
-  ["2026-10-27","Lab: create an eventstream with the sample streaming data","Events flowing into an eventhouse",L.fabric],
-  ["2026-10-28","DP-700 path: KQL basics for eventhouses","Module done; KQL ≠ SQL differences in notes",L.dp700],
-  ["2026-10-29","Lab: write 10 KQL queries on the sample eventhouse","10 queries saved",L.fabric],
-  ["2026-10-30","Real-time dashboards + weekly review","One dashboard tile built; notes reviewed",L.dp700]]},
- {w:14,p:1,days:[
-  ["2026-11-02","DP-700 path: administer & govern Fabric","Module + knowledge check done",L.dp700],
-  ["2026-11-03","DP-700 path: security & permissions model (workspace / item)","Module done",L.dp700],
-  ["2026-11-04","DP-700 path: CI/CD — deployment pipelines & Git integration","Module done",L.dp700],
-  ["2026-11-05","Lab: connect a workspace to Git; try a deployment pipeline","One commit from Fabric visible in Git",L.fabric],
-  ["2026-11-06","Monitoring: Monitor hub & capacity metrics; review notes","You can explain where to look when a job fails",L.dp700]]},
- {w:15,p:1,days:[
-  ["2026-11-09","Official practice assessment #1 — full run","Score in notes; list your 3 weakest areas",L.practice],
-  ["2026-11-10","Re-study weak area 1 (redo those modules)","Redone + fresh notes",L.dp700],
-  ["2026-11-11","Re-study weak area 2","Redone + fresh notes",L.dp700],
-  ["2026-11-12","Practice assessment #2","Score improved vs #1",L.practice],
-  ["2026-11-13","Review every wrong answer; book the DP-700 exam for mid-November ($165)","Exam booked — write the date in notes",L.cert]]},
- {w:16,p:1,days:[
-  ["2026-11-16","Read the official DP-700 study guide end to end","Every listed skill maps to something you did",L.cert],
-  ["2026-11-17","Practice assessment #3","Score in notes",L.practice],
-  ["2026-11-18","Lab refresh: rebuild a mini end-to-end flow (ingest → transform → report)","Done in under an hour without guides",L.fabric],
-  ["2026-11-19","Practice assessment #4","Target 80%+",L.practice],
-  ["2026-11-20","Light review only — then sit the DP-700 exam this week or Monday","Exam sat. Whatever happens, you showed up",L.cert]]},
+  ["2026-10-05","Transformations deep dive: Joiner, Aggregator, Lookup, Router, Expression","One mapping using at least 3 transformations",L.infafree],
+  ["2026-10-06","Parameters, parameterised connections, file handling + pushdown optimization","A parameterised mapping that runs with 2 different inputs",L.infafree],
+  ["2026-10-07","Mass Ingestion, CDC and Cloud Data Quality — what each service is for","One-line purpose for each IDMC service in notes",L.infa],
+  ["2026-10-08","Check Informatica certification options; pick your target credential","Credential chosen; cost and target date noted",L.infa],
+  ["2026-10-09","Mini project: end-to-end IDMC pipeline (file → clean → target) + screenshots","Pipeline runs; screenshots saved for your portfolio",L.infatrial]]},
+ {w:11,p:2,days:[
+  ["2026-10-12","Start the Microsoft Fabric free trial; tour the workspace","Trial active; one workspace created",L.fabric],
+  ["2026-10-13","DP-700 path: Introduction to end-to-end analytics with Fabric","Module + knowledge check done",L.dp700],
+  ["2026-10-14","DP-700 path: Get started with lakehouses","Module + knowledge check done",L.dp700],
+  ["2026-10-15","Lab: create a lakehouse, upload a sample CSV, query it","You can query your own table in Fabric",L.fabric],
+  ["2026-10-16","DP-700 path: Use Apache Spark in Fabric","Module done; note Spark pool basics",L.dp700]]},
+ {w:12,p:2,days:[
+  ["2026-10-19","Lab: run a Spark notebook over your lakehouse data","One notebook: read, transform, write a table",L.fabric],
+  ["2026-10-20","DP-700 path: ingest data with Dataflows Gen2","Module + knowledge check done",L.dp700],
+  ["2026-10-21","Lab: build a Dataflow Gen2 that cleans and lands a table","Dataflow runs end to end",L.fabric],
+  ["2026-10-22","DP-700 path: ingest with data pipelines (Copy activity)","Module done",L.dp700],
+  ["2026-10-23","Lab: build a pipeline; read up on OneLake shortcuts","Pipeline runs; shortcut concept in notes",L.fabric]]},
+ {w:13,p:2,days:[
+  ["2026-10-26","DP-700 path: work with Delta Lake tables","Module + knowledge check done",L.dp700],
+  ["2026-10-27","Lab: Delta tables — versioning & time travel","Query an old version of a table",L.fabric],
+  ["2026-10-28","DP-700 path: medallion architecture in Fabric","Module done; sketch bronze/silver/gold in notes",L.dp700],
+  ["2026-10-29","Lab: build bronze → silver → gold in your lakehouse","All three layers exist and load",L.fabric],
+  ["2026-10-30","Review weeks 7–9 notes; redo 2 knowledge checks","Both checks passed comfortably",L.dp700]]},
+ {w:14,p:2,days:[
+  ["2026-11-02","DP-700 path: get started with data warehouses in Fabric","Module + knowledge check done",L.dp700],
+  ["2026-11-03","Lab: create a warehouse; run T-SQL queries","Warehouse created, 5 queries run",L.fabric],
+  ["2026-11-04","DP-700 path: load data into the warehouse","Module done",L.dp700],
+  ["2026-11-05","Lab: load + query; explore warehouse monitoring","One load pattern working; monitoring page seen",L.fabric],
+  ["2026-11-06","DP-700 path: secure the warehouse (RLS / CLS / permissions)","Module done; note the 3 security levels",L.dp700]]},
+ {w:15,p:2,days:[
+  ["2026-11-09","DP-700 path: Real-Time Intelligence — eventstreams","Module + knowledge check done",L.dp700],
+  ["2026-11-10","Lab: create an eventstream with the sample streaming data","Events flowing into an eventhouse",L.fabric],
+  ["2026-11-11","DP-700 path: KQL basics for eventhouses","Module done; KQL ≠ SQL differences in notes",L.dp700],
+  ["2026-11-12","Lab: write 10 KQL queries on the sample eventhouse","10 queries saved",L.fabric],
+  ["2026-11-13","Real-time dashboards + weekly review","One dashboard tile built; notes reviewed",L.dp700]]},
+ {w:16,p:2,days:[
+  ["2026-11-16","DP-700 path: administer & govern Fabric","Module + knowledge check done",L.dp700],
+  ["2026-11-17","DP-700 path: security & permissions model (workspace / item)","Module done",L.dp700],
+  ["2026-11-18","DP-700 path: CI/CD — deployment pipelines & Git integration","Module done",L.dp700],
+  ["2026-11-19","Lab: connect a workspace to Git; try a deployment pipeline","One commit from Fabric visible in Git",L.fabric],
+  ["2026-11-20","Monitoring: Monitor hub & capacity metrics; review notes","You can explain where to look when a job fails",L.dp700]]},
  {w:17,p:2,days:[
-  ["2026-11-23","Create a Databricks Free Edition account; tour the workspace","Account active; one notebook opened",L.dbx],
-  ["2026-11-24","Databricks Academy: start the free Data Engineering learning plan","First modules done",L.dbxacad],
-  ["2026-11-25","Spark DataFrames: select, filter, withColumn practice","One practice notebook saved",L.dbx],
-  ["2026-11-26","Delta Lake on Databricks: create, merge, optimize","MERGE statement working on a demo table",L.dbxacad],
-  ["2026-11-27","Notebook exercise: small ETL over a sample dataset","Raw → clean → summary tables exist",L.dbx]]},
+  ["2026-11-23","Official practice assessment #1 — full run","Score in notes; list your 3 weakest areas",L.practice],
+  ["2026-11-24","Re-study weak area 1 (redo those modules)","Redone + fresh notes",L.dp700],
+  ["2026-11-25","Re-study weak area 2","Redone + fresh notes",L.dp700],
+  ["2026-11-26","Practice assessment #2","Score improved vs #1",L.practice],
+  ["2026-11-27","Review every wrong answer; book the DP-700 exam for the week of 30 November ($165)","Exam booked — write the date in notes",L.cert]]},
  {w:18,p:2,days:[
-  ["2026-11-30","PySpark: joins & aggregations practice","5 join/agg snippets in a notebook",L.dbx],
-  ["2026-12-01","PySpark: read/write Parquet & Delta; partitioning basics","Partitioned write + read-back done",L.dbx],
-  ["2026-12-02","Continue Databricks Academy modules","Next modules done",L.dbxacad],
-  ["2026-12-03","Build one end-to-end ETL notebook (raw → clean → aggregate)","Runs top to bottom in one click",L.dbx],
-  ["2026-12-04","Write the translation table: Informatica mappings → Spark concepts","One page in notes — this is interview gold",L.dbxacad]]},
- {w:19,p:2,days:[
-  ["2026-12-07","dbt Fundamentals: setup & first project","Course started; project runs",L.dbt],
-  ["2026-12-08","dbt: models & materializations","View vs table vs incremental in notes",L.dbt],
-  ["2026-12-09","dbt: tests & documentation","One test + docs generated",L.dbt],
-  ["2026-12-10","dbt: sources, seeds, Jinja basics","Lesson done",L.dbt],
-  ["2026-12-11","Finish dbt Fundamentals; claim the badge","Badge earned — add it to LinkedIn later",L.dbt]]},
- {w:20,p:2,days:[
-  ["2026-12-14","DE Zoomcamp: workflow orchestration module","Module skimmed; concepts noted",L.zoom],
-  ["2026-12-15","Orchestration concepts: DAGs, scheduling, retries, backfills","Can explain each in one sentence",L.zoom],
-  ["2026-12-16","Compare orchestrators: Fabric pipelines vs Airflow","1-page comparison note",L.zoom],
-  ["2026-12-17","SQL keep-sharp: 3 StrataScratch mediums","3 solved",L.ss],
-  ["2026-12-18","Phase 3 review: write your modern-stack cheat sheet — then holiday break until 4 January","One page you'd revise before any interview. Now go rest 🎄",L.zoom]]},
+  ["2026-11-30","Read the official DP-700 study guide end to end","Every listed skill maps to something you did",L.cert],
+  ["2026-12-01","Practice assessment #3","Score in notes",L.practice],
+  ["2026-12-02","Lab refresh: rebuild a mini end-to-end flow (ingest → transform → report)","Done in under an hour without guides",L.fabric],
+  ["2026-12-03","Practice assessment #4","Target 80%+",L.practice],
+  ["2026-12-04","Light review only — then sit the DP-700 exam this week or Monday","Exam sat. Whatever happens, you showed up",L.cert]]},
+ {w:19,p:3,days:[
+  ["2026-12-07","Create a Databricks Free Edition account; tour the workspace","Account active; one notebook opened",L.dbx],
+  ["2026-12-08","Databricks Academy: start the free Data Engineering learning plan","First modules done",L.dbxacad],
+  ["2026-12-09","Spark DataFrames: select, filter, withColumn practice","One practice notebook saved",L.dbx],
+  ["2026-12-10","Delta Lake on Databricks: create, merge, optimize","MERGE statement working on a demo table",L.dbxacad],
+  ["2026-12-11","Notebook exercise: small ETL over a sample dataset","Raw → clean → summary tables exist",L.dbx]]},
+ {w:20,p:3,days:[
+  ["2026-12-14","PySpark: joins & aggregations practice","5 join/agg snippets in a notebook",L.dbx],
+  ["2026-12-15","PySpark: read/write Parquet & Delta; partitioning basics","Partitioned write + read-back done",L.dbx],
+  ["2026-12-16","Continue Databricks Academy modules","Next modules done",L.dbxacad],
+  ["2026-12-17","Build one end-to-end ETL notebook (raw → clean → aggregate)","Runs top to bottom in one click",L.dbx],
+  ["2026-12-18","Write the translation table: Informatica mappings → Spark concepts — then holiday break until 4 January","One page in notes — this is interview gold. Now go rest 🎄",L.dbxacad]]},
  {w:21,p:3,days:[
-  ["2027-01-04","Project 1 design: pick a dataset on opendata.swiss; sketch a medallion plan","Dataset chosen; architecture sketched",L.opendata],
-  ["2027-01-05","Ingest: a Fabric pipeline lands the raw data (bronze)","Bronze layer loaded",L.fabric],
-  ["2027-01-06","Transform: notebook cleans bronze → silver","Silver tables exist",L.fabric],
-  ["2027-01-07","Gold layer + a small Power BI report on top","One report page with 3 visuals",L.fabric],
-  ["2027-01-08","Screenshot & document every step for the README","Folder of screenshots + captions",L.gh]]},
+  ["2027-01-04","dbt Fundamentals: setup & first project","Course started; project runs",L.dbt],
+  ["2027-01-05","dbt: models & materializations","View vs table vs incremental in notes",L.dbt],
+  ["2027-01-06","dbt: tests & documentation","One test + docs generated",L.dbt],
+  ["2027-01-07","dbt: sources, seeds, Jinja basics","Lesson done",L.dbt],
+  ["2027-01-08","Finish dbt Fundamentals; claim the badge","Badge earned — add it to LinkedIn later",L.dbt]]},
  {w:22,p:3,days:[
-  ["2027-01-11","Create a GitHub repo; push notebooks & pipeline definitions","Repo public and organized",L.gh],
-  ["2027-01-12","Write the README: architecture diagram + what/why/how","A stranger could understand the project in 2 min",L.gh],
-  ["2027-01-13","Informatica refresh: free IDMC trainings on Informatica University","First course started",L.infa],
-  ["2027-01-14","IDMC continued: map your PowerCenter knowledge to cloud terms","Old skill → new term list in notes",L.infa],
-  ["2027-01-15","Wrap up project 1: final commit, screenshots, polished README","Project 1 fully published",L.gh]]},
- {w:23,p:3,days:[
-  ["2027-01-18","Project 2 design: PySpark ETL on Databricks + dbt transforms","Scope written down — keep it small",L.dbx],
-  ["2027-01-19","Build ingestion + bronze tables","Bronze loaded",L.dbx],
-  ["2027-01-20","PySpark transformations to silver / gold","Both layers built",L.dbx],
-  ["2027-01-21","Add dbt models & tests on top","dbt run + test both green",L.dbt],
-  ["2027-01-22","Push to GitHub with a strong README","Second repo live",L.gh]]},
- {w:24,p:3,days:[
-  ["2027-01-25","CV rewrite (Swiss format): 8 yrs experience + DP-700 + both projects up top","Draft done",L.jobs],
-  ["2027-01-26","LinkedIn overhaul: headline, About, skills, project links, dbt badge","Profile says data engineer, not career gap",L.li],
-  ["2027-01-27","Write & rehearse your 60-second career-gap answer","Said out loud 5 times without notes",L.li],
-  ["2027-01-28","List 20 target Zürich employers (banks, insurers, pharma, consultancies)","20 names + why each fits you",L.jobs],
-  ["2027-01-29","Set job alerts on jobs.ch + LinkedIn; collect recurring keywords","Alerts on; keyword list started",L.jobs]]},
- {w:25,p:3,days:[
-  ["2027-02-01","Interview drills: 3 StrataScratch interview SQL questions","3 solved under light time pressure",L.ss],
-  ["2027-02-02","Data modeling review: star schema, SCD types — from your notes","Can whiteboard both from memory",L.zoom],
-  ["2027-02-03","Pipeline design: explain an end-to-end design out loud","2-minute spoken walkthrough, recorded on your phone",L.zoom],
-  ["2027-02-04","STAR stories: draft 5 behavioral answers from your 8 years","5 stories written",L.li],
-  ["2027-02-05","Apply to your first 3 roles","3 applications sent 🚀",L.jobs]]}
+  ["2027-01-11","DE Zoomcamp: workflow orchestration module","Module skimmed; concepts noted",L.zoom],
+  ["2027-01-12","Orchestration concepts: DAGs, scheduling, retries, backfills","Can explain each in one sentence",L.zoom],
+  ["2027-01-13","Compare orchestrators: Fabric pipelines vs Airflow","1-page comparison note",L.zoom],
+  ["2027-01-14","SQL keep-sharp: 3 StrataScratch mediums","3 solved",L.ss],
+  ["2027-01-15","Phase review: write your modern-stack cheat sheet","One page you'd revise before any interview",L.zoom]]},
+ {w:23,p:4,days:[
+  ["2027-01-18","Project 1 design: pick a dataset on opendata.swiss; sketch a medallion plan","Dataset chosen; architecture sketched",L.opendata],
+  ["2027-01-19","Ingest: a Fabric pipeline lands the raw data (bronze)","Bronze layer loaded",L.fabric],
+  ["2027-01-20","Transform: notebook cleans bronze → silver","Silver tables exist",L.fabric],
+  ["2027-01-21","Gold layer + a small Power BI report on top","One report page with 3 visuals",L.fabric],
+  ["2027-01-22","Screenshot & document every step for the README","Folder of screenshots + captions",L.gh]]},
+ {w:24,p:4,days:[
+  ["2027-01-25","Create a GitHub repo; push notebooks & pipeline definitions","Repo public and organized",L.gh],
+  ["2027-01-26","Write the README: architecture diagram + what/why/how","A stranger could understand the project in 2 min",L.gh],
+  ["2027-01-27","Add data quality checks and an architecture diagram to project 1","Checks documented; diagram in the README",L.gh],
+  ["2027-01-28","Record a 3-minute walkthrough of project 1 on your phone","Video saved — this is your interview practice",L.gh],
+  ["2027-01-29","Wrap up project 1: final commit, screenshots, polished README","Project 1 fully published",L.gh]]},
+ {w:25,p:4,days:[
+  ["2027-02-01","Project 2 design: PySpark ETL on Databricks + dbt transforms","Scope written down — keep it small",L.dbx],
+  ["2027-02-02","Build ingestion + bronze tables","Bronze loaded",L.dbx],
+  ["2027-02-03","PySpark transformations to silver / gold","Both layers built",L.dbx],
+  ["2027-02-04","Add dbt models & tests on top","dbt run + test both green",L.dbt],
+  ["2027-02-05","Push to GitHub with a strong README","Second repo live",L.gh]]},
+ {w:26,p:4,days:[
+  ["2027-02-08","CV rewrite (Swiss format): 8 yrs experience + DP-700 + both projects up top","Draft done",L.jobs],
+  ["2027-02-09","LinkedIn overhaul: headline, About, skills, project links, dbt badge","Profile says data engineer, not career gap",L.li],
+  ["2027-02-10","Write & rehearse your 60-second career-gap answer","Said out loud 5 times without notes",L.li],
+  ["2027-02-11","List 20 target Zürich employers (banks, insurers, pharma, consultancies)","20 names + why each fits you",L.jobs],
+  ["2027-02-12","Set job alerts on jobs.ch + LinkedIn; collect recurring keywords","Alerts on; keyword list started",L.jobs]]},
+ {w:27,p:4,days:[
+  ["2027-02-15","Interview drills: 3 StrataScratch interview SQL questions","3 solved under light time pressure",L.ss],
+  ["2027-02-16","Data modeling review: star schema, SCD types — from your notes","Can whiteboard both from memory",L.zoom],
+  ["2027-02-17","Pipeline design: explain an end-to-end design out loud","2-minute spoken walkthrough, recorded on your phone",L.zoom],
+  ["2027-02-18","STAR stories: draft 5 behavioral answers from your 8 years","5 stories written",L.li],
+  ["2027-02-19","Apply to your first 3 roles","3 applications sent 🚀",L.jobs]]}
 ];
 
 /* ---------------- state & storage ---------------- */
