@@ -177,7 +177,13 @@ footer{margin-top:36px;text-align:center;color:var(--muted);font-size:12px}
 /* ---------------- sources ---------------- */
 var L = {
   sqlbolt:"https://sqlbolt.com",
-  mode:"https://mode.com/sql-tutorial",
+  sqlzoo:"https://sqlzoo.net/wiki/SQL_Tutorial",
+  zsum:"https://sqlzoo.net/wiki/SUM_and_COUNT",
+  zjoin:"https://sqlzoo.net/wiki/The_JOIN_operation",
+  zjoin2:"https://sqlzoo.net/wiki/More_JOIN_operations",
+  zsub:"https://sqlzoo.net/wiki/SELECT_within_SELECT",
+  zwin:"https://sqlzoo.net/wiki/Window_functions",
+  zself:"https://sqlzoo.net/wiki/Self_join",
   lc:"https://leetcode.com/studyplan/top-sql-50/",
   ss:"https://platform.stratascratch.com/coding",
   kagpy:"https://www.kaggle.com/learn/python",
@@ -206,7 +212,10 @@ var L = {
   infatrial:"https://www.informatica.com/trials/cloud-data-integration.html"
 };
 var SRC = {};
-SRC[L.sqlbolt]="SQLBolt"; SRC[L.mode]="Mode SQL Tutorial"; SRC[L.lc]="LeetCode SQL 50";
+SRC[L.sqlbolt]="SQLBolt"; SRC[L.sqlzoo]="SQLZoo"; SRC[L.zsum]="SQLZoo · SUM and COUNT";
+SRC[L.zjoin]="SQLZoo · The JOIN operation"; SRC[L.zjoin2]="SQLZoo · More JOINs";
+SRC[L.zsub]="SQLZoo · SELECT within SELECT"; SRC[L.zwin]="SQLZoo · Window functions";
+SRC[L.zself]="SQLZoo · Self join"; SRC[L.lc]="LeetCode SQL 50";
 SRC[L.ss]="StrataScratch"; SRC[L.kagpy]="Kaggle · Python"; SRC[L.kagpd]="Kaggle · Pandas";
 SRC[L.kagds]="Kaggle Datasets"; SRC[L.dp700]="MS Learn · DP-700"; SRC[L.cert]="DP-700 cert page";
 SRC[L.practice]="Practice assessment"; SRC[L.fabric]="Microsoft Fabric"; SRC[L.dbx]="Databricks Free";
@@ -236,13 +245,13 @@ var PLAN = [
   ["2026-08-06","SQLBolt lessons 10–12: aggregates & GROUP BY","Write the logical order of SQL execution from memory",L.sqlbolt],
   ["2026-08-07","SQLBolt lessons 13–18: INSERT, UPDATE, DELETE, schema","Finish the course; 10-bullet week summary in notes",L.sqlbolt]]},
  {w:2,p:0,days:[
-  ["2026-08-10","Mode tutorial: aggregate functions (COUNT, SUM, AVG…)","Finish the aggregate lessons + practice problems",L.mode],
-  ["2026-08-11","Mode: GROUP BY, HAVING, CASE","Finish all three lessons' practice problems",L.mode],
-  ["2026-08-12","Mode: joins in depth + UNION","Note join pitfalls: duplicates, NULLs, fan-out",L.mode],
-  ["2026-08-13","Mode: subqueries","Finish lesson; rewrite one subquery as a JOIN",L.mode],
-  ["2026-08-14","Mode: window functions I — OVER, PARTITION BY","Finish intro lesson; note the syntax pattern",L.mode]]},
+  ["2026-08-10","SQLZoo: SUM and COUNT — aggregate functions with GROUP BY","Every question in the tutorial answered",L.zsum],
+  ["2026-08-11","SQLZoo: The JOIN operation (World Cup data)","Tutorial complete; note how the join keys connect the tables",L.zjoin],
+  ["2026-08-12","SQLZoo: More JOIN operations (movie database)","Tutorial complete; note join pitfalls — duplicates, NULLs, fan-out",L.zjoin2],
+  ["2026-08-13","SQLZoo: SELECT within SELECT — subqueries","Tutorial complete; rewrite one subquery as a JOIN",L.zsub],
+  ["2026-08-14","SQLZoo: Window functions — OVER and PARTITION BY","First half of the tutorial done; syntax pattern in notes",L.zwin]]},
  {w:3,p:0,days:[
-  ["2026-08-17","Mode: window functions II — RANK, LAG/LEAD, running totals","Write 3 example queries in your notes",L.mode],
+  ["2026-08-17","SQLZoo: finish Window functions (RANK, LAG) then Self join","Both tutorials complete; 3 example queries in your notes",L.zwin],
   ["2026-08-18","LeetCode SQL 50: Select & Basic Joins","Solve 5 problems",L.lc],
   ["2026-08-19","LeetCode SQL 50: Basic Aggregate Functions","Solve 5 problems",L.lc],
   ["2026-08-20","LeetCode SQL 50: Sorting & Grouping","Solve 5 problems",L.lc],
@@ -276,7 +285,7 @@ var PLAN = [
   ["2026-09-22","StrataScratch: 2 medium SQL questions","2 solved; note the tricks",L.ss],
   ["2026-09-23","Mini project: pick any Kaggle CSV — load, clean, group, chart with pandas","A working notebook you could show someone",L.kagds],
   ["2026-09-24","LeetCode SQL 50: Advanced Select & window problems","Solve 4",L.lc],
-  ["2026-09-25","Phase 1 review: self-quiz from your own notes","List your 3 weak spots to revisit later",L.mode]]},
+  ["2026-09-25","Phase review: self-quiz from your notes + one SQLZoo graded assessment","List your 3 weak spots to revisit later",L.sqlzoo]]},
  {w:9,p:1,days:[
   ["2026-09-28","Sign up for Cloud Data Integration Free; tour Administrator, Data Integration & Monitor","Org active; you know what the Secure Agent does",L.infafree],
   ["2026-09-29","Informatica University: start the free Cloud Data Integration self-paced course","First modules done; IDMC architecture sketched in notes",L.infa],
